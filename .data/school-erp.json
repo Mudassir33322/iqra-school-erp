@@ -743,7 +743,7 @@
       "parentId": "par-9",
       "studentCode": "ST-1009",
       "rollNo": "02",
-      "name": "Daniyal Raza",
+      "name": "Daniyal ",
       "fatherName": "Razaullah Khan",
       "gender": "male",
       "dob": "2012-08-15",
@@ -757,7 +757,11 @@
       "monthlyFee": 9200,
       "discountPercent": 0,
       "admissionDate": "2026-02-14",
-      "status": "active"
+      "status": "active",
+      "bFormNo": "",
+      "bloodGroup": "",
+      "emergencyPhone": "",
+      "previousSchool": ""
     },
     {
       "id": "stu-10",
@@ -2635,6 +2639,51 @@
   ],
   "loginLogs": [
     {
+      "id": "lgn-1795464455067-sj13e",
+      "timestamp": "2026-11-23 20:07:35",
+      "userName": "Zain",
+      "email": "muhammadmudassir33322@gmail.com",
+      "role": "Admin",
+      "deviceLabel": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ",
+      "status": "Success"
+    },
+    {
+      "id": "lgn-1795464168013-v9wpl",
+      "timestamp": "2026-11-23 20:02:48",
+      "userName": "Zain",
+      "email": "muhammadmudassir33322@gmail.com",
+      "role": "Admin",
+      "deviceLabel": "node",
+      "status": "Success"
+    },
+    {
+      "id": "lgn-1795457404009-0z2ny",
+      "timestamp": "2026-11-23 18:10:04",
+      "userName": "Hamza Tariq",
+      "email": "ST-1001",
+      "role": "Student",
+      "deviceLabel": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ",
+      "status": "Success"
+    },
+    {
+      "id": "lgn-1795457224008-jy5rr",
+      "timestamp": "2026-11-23 18:07:04",
+      "userName": "Zain",
+      "email": "muhammadmudassir33322@gmail.com",
+      "role": "Admin",
+      "deviceLabel": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ",
+      "status": "Success"
+    },
+    {
+      "id": "lgn-1795457000237-g9xgr",
+      "timestamp": "2026-11-23 18:03:20",
+      "userName": "Zain",
+      "email": "muhammadmudassir33322@gmail.com",
+      "role": "Admin",
+      "deviceLabel": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ",
+      "status": "Success"
+    },
+    {
       "id": "lgn-1795452517915-rvul7",
       "timestamp": "2026-11-23 16:48:37",
       "userName": "Zain",
@@ -2642,6 +2691,18 @@
       "role": "Admin",
       "deviceLabel": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ",
       "status": "Success"
+    }
+  ],
+  "userPreferences": {},
+  "auditLogs": [
+    {
+      "id": "aud-1795457214633-xruek",
+      "timestamp": "2026-11-23 18:06:54",
+      "actorName": "Zain",
+      "actorRole": "Admin",
+      "method": "PATCH",
+      "path": "/api/students/stu-9",
+      "summary": "PATCH /api/students/stu-9"
     }
   ]
 }

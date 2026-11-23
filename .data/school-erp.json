@@ -2639,6 +2639,15 @@
   ],
   "loginLogs": [
     {
+      "id": "lgn-1795465648016-rn1e1",
+      "timestamp": "2026-11-23 20:27:28",
+      "userName": "Zain",
+      "email": "muhammadmudassir33322@gmail.com",
+      "role": "Admin",
+      "deviceLabel": "node",
+      "status": "Success"
+    },
+    {
       "id": "lgn-1795464455067-sj13e",
       "timestamp": "2026-11-23 20:07:35",
       "userName": "Zain",

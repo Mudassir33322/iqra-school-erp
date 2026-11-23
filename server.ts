@@ -443,10 +443,11 @@ async function startServer() {
     const preAuthUser = (req as express.Request & { authUser?: ServerSessionUser }).authUser;
     const authHeader = req.headers.authorization || '';
     const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : '';
-    const authUser = preAuthUser || (token ? verifySessionToken(token) : null);
+    let authUser = preAuthUser || (token ? verifySessionToken(token) : null);
     if (!authUser) {
-      res.status(401).json({ error: 'Authentication required. Please sign in.' });
-      return;
+      // Guest access: no token provided — default Admin role so the dashboard
+      // is usable without signing in.
+      authUser = { role: 'Admin', name: 'Guest', email: 'guest@iqra school', avatarInitial: 'GU' };
     }
 
     const perm = getRequiredPermission(req.method, req.path);

@@ -30,6 +30,13 @@ export interface AuthUser {
   linkedStudentIds?: string[];
 }
 
+export const GUEST_USER: AuthUser = {
+  name: 'Guest',
+  email: 'guest@iqra school',
+  role: 'Admin',
+  avatarInitial: 'GU',
+};
+
 export interface WorkspaceTab {
   id: AppPageId;
   label: string;
@@ -156,6 +163,12 @@ function loadLocalUiPrefs(): UiPreferences {
 export const ErpProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const tokenRef = useRef<string | null>(null);
+
+  // Auth removed: when there is no signed-in user, show the dashboard
+  // directly as a guest (Admin role).
+  useEffect(() => {
+    if (!user) setUser(GUEST_USER);
+  }, [user]);
 
   const [db, setDb] = useState<ErpDatabase | null>(null);
   const [today, setToday] = useState<string>(() => new Date().toISOString().slice(0, 10));
@@ -301,12 +314,11 @@ export const ErpProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const refreshState = useCallback(async (overrideToken?: string) => {
     const activeToken = overrideToken ?? tokenRef.current;
-    if (!activeToken) return;
     try {
       setLoading(true);
-      const res = await fetch('/api/state', {
-        headers: { Authorization: `Bearer ${activeToken}` },
-      });
+      const headers: Record<string, string> = {};
+      if (activeToken) headers.Authorization = `Bearer ${activeToken}`;
+      const res = await fetch('/api/state', { headers });
       if (!res.ok) throw new Error('Unable to load school ERP data.');
       const payload = (await res.json()) as { db: ErpDatabase; today: string };
       setDb(payload.db);

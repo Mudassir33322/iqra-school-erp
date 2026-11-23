@@ -1,0 +1,194 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-sans: 'Poppins', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --accent: #0f766e;
+    --accent-hover: #115e59;
+    --accent-soft: rgba(15, 118, 110, 0.1);
+    --accent-border: rgba(15, 118, 110, 0.28);
+    --radius-card: 1rem;
+    --radius-control: 0.75rem;
+    --space-main: 1.5rem;
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dynamic Accent Colour Overrides across primary UI controls */
+:root[data-custom-accent="true"] .bg-teal-700 {
+  background-color: var(--accent) !important;
+}
+:root[data-custom-accent="true"] .hover\:bg-teal-800:hover,
+:root[data-custom-accent="true"] .bg-teal-800 {
+  background-color: var(--accent-hover) !important;
+}
+:root[data-custom-accent="true"] .text-teal-700,
+:root[data-custom-accent="true"] .text-teal-600 {
+  color: var(--accent) !important;
+}
+:root[data-custom-accent="true"] .border-teal-600,
+:root[data-custom-accent="true"] .border-teal-500 {
+  border-color: var(--accent) !important;
+}
+:root[data-custom-accent="true"] .bg-teal-50 {
+  background-color: var(--accent-soft) !important;
+}
+:root[data-custom-accent="true"] .accent-teal-700 {
+  accent-color: var(--accent) !important;
+}
+
+/* Dynamic Corner Roundness scaling */
+:root[data-custom-radius="true"] .rounded-2xl {
+  border-radius: var(--radius-card) !important;
+}
+:root[data-custom-radius="true"] .rounded-xl {
+  border-radius: var(--radius-control) !important;
+}
+
+/* Spacing density presets */
+:root[data-spacing="compact"] .erp-main {
+  padding: 0.875rem !important;
+}
+:root[data-spacing="roomy"] .erp-main {
+  padding: 2rem !important;
+}
+
+/* Glassmorphism surfaces toggle */
+:root[data-glass="on"] .erp-surface {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+:root[data-glass="off"] .erp-surface {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Background canvas textures */
+.erp-bg-soft {
+  background-image: radial-gradient(circle at 12% 10%, rgba(254, 243, 199, 0.45), transparent 42%),
+    radial-gradient(circle at 88% 85%, rgba(204, 251, 241, 0.45), transparent 45%);
+  background-color: #f8fafc;
+}
+.dark .erp-bg-soft {
+  background-image: radial-gradient(circle at 15% 15%, rgba(15, 118, 110, 0.14), transparent 45%);
+  background-color: #020617;
+}
+
+.erp-bg-aurora {
+  background-image: radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.16) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.16) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(168, 85, 247, 0.12) 0px, transparent 50%);
+  background-color: #f8fafc;
+}
+.dark .erp-bg-aurora {
+  background-image: radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.18) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.16) 0px, transparent 50%);
+  background-color: #020617;
+}
+
+.erp-bg-plain {
+  background-color: #f1f5f9;
+}
+.dark .erp-bg-plain {
+  background-color: #020617;
+}
+
+.erp-bg-dotted {
+  background-color: #f8fafc;
+  background-image: radial-gradient(rgba(15, 23, 42, 0.11) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.dark .erp-bg-dotted {
+  background-color: #020617;
+  background-image: radial-gradient(rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.erp-bg-sunset {
+  background-image: linear-gradient(135deg, rgba(254, 215, 170, 0.38) 0%, rgba(254, 205, 211, 0.32) 50%, rgba(224, 231, 255, 0.35) 100%);
+  background-color: #fffbf7;
+}
+.dark .erp-bg-sunset {
+  background-image: linear-gradient(135deg, rgba(124, 45, 18, 0.2) 0%, rgba(136, 19, 55, 0.16) 50%, rgba(2, 6, 23, 1) 100%);
+  background-color: #020617;
+}
+
+.erp-bg-mint {
+  background-image: linear-gradient(135deg, rgba(209, 250, 229, 0.45) 0%, rgba(204, 251, 241, 0.42) 50%, rgba(224, 242, 254, 0.35) 100%);
+  background-color: #f4fbf9;
+}
+.dark .erp-bg-mint {
+  background-image: linear-gradient(135deg, rgba(6, 78, 59, 0.25) 0%, rgba(15, 23, 42, 1) 100%);
+  background-color: #020617;
+}
+
+/* Light-mode navigation colour presets */
+.erp-nav-cream {
+  background-color: rgba(255, 252, 246, 0.9) !important;
+}
+.dark .erp-nav-cream {
+  background-color: rgb(15 23 42 / 0.95) !important;
+}
+
+.erp-nav-coloured {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 13%, #ffffff) 0%, rgba(255, 255, 255, 0.92) 100%) !important;
+}
+.dark .erp-nav-coloured {
+  background: rgb(15 23 42 / 0.95) !important;
+}
+
+/* Distinctive EasySchoolin Loading Animations */
+@keyframes erp-orbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes erp-progress-slide {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+.animate-erp-orbit {
+  animation: erp-orbit 1.15s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+}
+.animate-erp-progress {
+  animation: erp-progress-slide 1.5s ease-in-out infinite;
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+  aside, header, .no-print {
+    display: none !important;
+  }
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+}

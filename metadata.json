@@ -1,0 +1,6 @@
+{
+  "name": "Iqra School · School ERP",
+  "description": "Comprehensive multi-campus school management ERP for admissions, student records, attendance, fee vouchers, accounting, exams, staff payroll, and campus operations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

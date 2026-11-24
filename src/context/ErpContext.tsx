@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import type { AppPageId, ErpDatabase, UiPreferences, UserRole } from '../types/erp';
 import { canAccessPage, canPerformPermission, type ErpPermission } from '../utils/rbac';
+import { createSeedDatabase } from '../data/seedData';
 import {
   applyUiPreferencesToDom,
   DEFAULT_UI_PREFERENCES,
@@ -164,8 +165,7 @@ export const ErpProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [user, setUser] = useState<AuthUser | null>(null);
   const tokenRef = useRef<string | null>(null);
 
-  // Auth removed: when there is no signed-in user, show the dashboard
-  // directly as a guest (Admin role).
+  // Auth removed: when there is no signed-in user, show the dashboard directly.
   useEffect(() => {
     if (!user) setUser(GUEST_USER);
   }, [user]);
@@ -320,11 +320,12 @@ export const ErpProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (activeToken) headers.Authorization = `Bearer ${activeToken}`;
       const res = await fetch('/api/state', { headers });
       if (!res.ok) throw new Error('Unable to load school ERP data.');
-      const payload = (await res.json()) as { db: ErpDatabase; today: string };
-      setDb(payload.db);
-      saveOfflineDbSnapshot(payload.db);
+      const payload = (await res.json()) as { db?: ErpDatabase; today: string };
+      const loadedDb = payload.db ?? loadOfflineDbSnapshot() ?? createSeedDatabase();
+      setDb(loadedDb);
+      if (payload.db) saveOfflineDbSnapshot(payload.db);
       setLastSyncedAt(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-      setToday(payload.today);
+      if (payload.today) setToday(payload.today);
       setError(null);
     } catch (err) {
       const cached = loadOfflineDbSnapshot();
@@ -332,12 +333,21 @@ export const ErpProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setDb(cached);
         setError(null);
       } else {
+        // No backend data available (e.g. static host): show the dashboard
+        // with a seeded database so the app still renders.
+        setDb(createSeedDatabase());
         setError(err instanceof Error ? err.message : 'Failed to load data.');
       }
     } finally {
       setLoading(false);
     }
   }, []);
+
+  // Auth removed: when there is no cached data yet, load the state so the
+  // dashboard renders.
+  useEffect(() => {
+    if (user && !db) void refreshState();
+  }, [user, db, refreshState]);
 
   useEffect(() => {
     try {
